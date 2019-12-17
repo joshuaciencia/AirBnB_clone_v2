@@ -8,4 +8,5 @@ class State(BaseModel):
     Attributes:
         name: input name
     """
-    name = ""
+    name = Column(String(128), nullable=False)
+    __tablename__ = 
