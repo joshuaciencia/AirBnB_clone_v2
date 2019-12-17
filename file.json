@@ -1,1 +1,1 @@
-{"User.93b06281-bd44-4015-bbe8-1fa0c298c691": {"id": "93b06281-bd44-4015-bbe8-1fa0c298c691", "created_at": "2018-06-14T09:45:52.369371", "updated_at": "2018-06-14T09:47:36.040444", "hello": "world", "__class__": "User"}}
+{"State.a25acecd-4f4e-4b9d-bb67-04a1433edb07": {"name": "California", "id": "a25acecd-4f4e-4b9d-bb67-04a1433edb07", "__class__": "State", "updated_at": "2019-12-17T17:13:38.413666", "created_at": "2019-12-17T17:13:38.413666"}}
