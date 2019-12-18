@@ -39,8 +39,10 @@ class DBStorage:
             for obj in self.__session.query(cls).all():
                 dic[type(obj).__name__ + "." + obj.id] = obj
         else:
+            cls_list = [State, State]
+            for c in cls_list:
                 for obj in self.__session.\
-                query(State, City).\
+                query(c).\
                 all():
                     dic[type(obj).__name__ + "." + obj.id] = obj
         return dic
@@ -55,7 +57,7 @@ class DBStorage:
 
     def delete(self, obj=None):
         """ Delete from the current database session """
-        if not None:
+        if obj:
             self.__session.delete(obj)
 
     def reload(self):
