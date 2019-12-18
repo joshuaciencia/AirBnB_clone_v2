@@ -10,7 +10,6 @@ class City(BaseModel, Base):
         state_id: The state id
         name: input name
     """
-    state_id = ""
     name = Column(String(128), nullable=False)
     state_id = Column(String(60), nullable=False, ForeignKey('states.id'))
     __tablename__ =  'cities'

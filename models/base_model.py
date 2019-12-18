@@ -15,8 +15,8 @@ class BaseModel:
     for other classes
     """
     id = Column(String(60), nullable=False, primary_key=True)
-    created_at = DateTime(default=datetime.utcnow)
-    updated_at = DateTime(default=datetime.utcnow)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
         """Instantiation of base model class
@@ -55,8 +55,8 @@ class BaseModel:
         """updates the public instance attribute updated_at to current
         """
         self.updated_at = datetime.now()
-        models.storage.save()
         models.storage.new(self)
+        models.storage.save()
 
     def delete(self):
         """ 
