@@ -16,14 +16,32 @@ class DBStorage:
                                                     getenv('HBNB_MYSQL_HOST')
                                                     getenv('HBNB_MYSQL_DB')),
         pool_pre_ping=True)
-
         if get_env('HBNB_ENV') is 'test':
-                sql = text('DROP DATABASE' + getenv('HBNB_MYSQL_DB'))
-                self.__engine.execute(sql)
+            Base.metada.drop_all(self.__engine)
+
     def all(self, cls=None):
         dic = {}
-        if cls is not None:
+        if cls:
             for obj in self.__session.query(cls).all():
-                dic[type(obj).__name__ + obj.id] = obj
+                dic[type(obj).__name__ + "." + obj.id] = obj
         else:
-            for 
+                for obj in self.__session.\
+                query(Use0r, State, City, Amenity, Place, Review).\
+                all():
+                dic[type(obj).__name__ + "." + obj.id] = obj
+        return dic
+    
+    def new(self, obj):
+        self.__session.add(obj)
+
+    def save(self):
+        self.__session.commit()
+
+    def delete(self, obj=None):
+        if not None:
+            self.__session.delete(obj)
+
+    def reload(self):
+        Base.metadata.create_all(self.__engine)
+        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        self.__session = scoped_session(session_factory)()
