@@ -3,8 +3,9 @@
 from models.base_model import BaseModel
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String
+from models.base_model import Base
 
-class State(BaseModel):
+class State(BaseModel, Base):
     """This is the class for State
     Attributes:
         name: input name
@@ -12,7 +13,8 @@ class State(BaseModel):
     name = Column(String(128), nullable=False)
     __tablename__ = 'states'
     cities = relationship(
-        "City", back_populates="state", cascade="all, delete")
+        "City", backref="state", cascade="delete")
+    
 
     @property
     def cities(self):
