@@ -18,6 +18,7 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
+        """ Getter attribute """
         cities = []
         for city in models.storage.all(City).values():
             if (city.state_id == self.id):

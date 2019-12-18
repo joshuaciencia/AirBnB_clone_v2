@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" Usage of SQLAlchemy """
 from os import getenv
 from models.base_model import Base
 from models.user import User
@@ -29,6 +30,10 @@ class DBStorage:
             Base.metada.drop_all(self.__engine)
 
     def all(self, cls=None):
+        """ 
+            Condition that query all types of objects 
+            Returns a dictionary
+        """
         dic = {}
         if cls:
             for obj in self.__session.query(cls).all():
@@ -41,16 +46,20 @@ class DBStorage:
         return dic
     
     def new(self, obj):
+        """ Add the object to the current database session """
         self.__session.add(obj)
 
     def save(self):
+        """ Commit all changes of the current database session """
         self.__session.commit()
 
     def delete(self, obj=None):
+        """ Delete from the current database session """
         if not None:
             self.__session.delete(obj)
 
     def reload(self):
+        """ Create all tables in the database """
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(session_factory)()
