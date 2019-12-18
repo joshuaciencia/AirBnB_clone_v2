@@ -1,6 +1,15 @@
 #!/usr/bin/python3
 from os import getenv
-from sqlalchemy import text
+from models.base_model import Base
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from sqlalchemy import (create_engine)
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session
 
 
 class DBStorage:
@@ -13,10 +22,10 @@ class DBStorage:
         self.__engine = create_engine(
         'mysql+mysqldb://{}:{}@{}/{}'.format(getenv('HBNB_MYSQL_USER'),
                                                     getenv('HBNB_MYSQL_PWD'),
-                                                    getenv('HBNB_MYSQL_HOST')
+                                                    getenv('HBNB_MYSQL_HOST'),
                                                     getenv('HBNB_MYSQL_DB')),
         pool_pre_ping=True)
-        if get_env('HBNB_ENV') is 'test':
+        if getenv('HBNB_ENV') is 'test':
             Base.metada.drop_all(self.__engine)
 
     def all(self, cls=None):
@@ -26,9 +35,9 @@ class DBStorage:
                 dic[type(obj).__name__ + "." + obj.id] = obj
         else:
                 for obj in self.__session.\
-                query(Use0r, State, City, Amenity, Place, Review).\
+                query(User, State, City, Amenity, Place, Review).\
                 all():
-                dic[type(obj).__name__ + "." + obj.id] = obj
+                    dic[type(obj).__name__ + "." + obj.id] = obj
         return dic
     
     def new(self, obj):
