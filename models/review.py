@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 """This is the review class"""
 from models.base_model import BaseModel
-from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Column, ForeignKey, String
+from models.base_model import Base
 
 
-class Review(BaseModel):
+class Review(BaseModel, Base):
     """This is the class for Review
     Attributes:
         place_id: place id
