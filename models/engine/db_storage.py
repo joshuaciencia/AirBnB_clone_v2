@@ -21,7 +21,8 @@ class DBStorage:
     def __init__(self):
         """ Instantiation of DBStorage class """
         self.__engine = create_engine(
-        'mysql+mysqldb://{}:{}@{}/{}'.format(getenv('HBNB_MYSQL_USER'),
+        'mysql+mysqldb://{}:{}@{}/{}'.format(
+                                                    getenv('HBNB_MYSQL_USER'),
                                                     getenv('HBNB_MYSQL_PWD'),
                                                     getenv('HBNB_MYSQL_HOST'),
                                                     getenv('HBNB_MYSQL_DB')),
@@ -30,8 +31,8 @@ class DBStorage:
             Base.metada.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """ 
-            Condition that query all types of objects 
+        """
+            Condition that query all types of objects
             Returns a dictionary
         """
         dic = {}
@@ -42,11 +43,11 @@ class DBStorage:
             cls_list = [State, City, User, Place, Review]
             for c in cls_list:
                 for obj in self.__session.\
-                query(c).\
-                all():
-                    dic[type(obj).__name__ + "." + obj.id] = obj
+                    query(c).\
+                    all():
+                        dic[type(obj).__name__ + "." + obj.id] = obj
         return dic
-    
+
     def new(self, obj):
         """ Add the object to the current database session """
         self.__session.add(obj)
@@ -63,5 +64,6 @@ class DBStorage:
     def reload(self):
         """ Create all tables in the database """
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(
+            bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(session_factory)()
