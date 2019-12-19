@@ -39,7 +39,7 @@ class DBStorage:
             for obj in self.__session.query(cls).all():
                 dic[type(obj).__name__ + "." + obj.id] = obj
         else:
-            cls_list = [State, City, User]
+            cls_list = [State, City, User, Place]
             for c in cls_list:
                 for obj in self.__session.\
                 query(c).\
