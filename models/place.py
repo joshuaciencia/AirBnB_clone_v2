@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """This is the place class"""
-from models.base_model import BaseModel
-from models.base_model import Base
+from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 place_amenity = Table('place_amenity', Base.metadata,
@@ -10,7 +9,8 @@ place_amenity = Table('place_amenity', Base.metadata,
                       Column('amenity_id', String(60),
                              ForeignKey('amenities.id'), primary_key=True,
                              nullable=False))
-
+import models                             
+from models.amenity import Amenity
 
 class Place(BaseModel, Base):
     """This is the class for Place
@@ -59,7 +59,7 @@ class Place(BaseModel, Base):
     def amenities(self):
         cs = []
         for ame in models.storage.all(Amenity).values():
-            if Amenity.amenity_ids == self.id:
+            if Place.amenity_ids == self.id:
                 cs.append(ame)
         return cs
 
