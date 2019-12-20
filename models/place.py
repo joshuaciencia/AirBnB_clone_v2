@@ -2,8 +2,14 @@
 """This is the place class"""
 from models.base_model import BaseModel
 from models.base_model import Base
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
+place_amenity = Table('association', Base.metadata,
+                      Column('place_id', String(60), ForeignKey('places.id'),
+                             primary_key=True, nullable=False),
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id'), primary_key=True,
+                             nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -34,6 +40,8 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     amenity_ids = []
     reviews = relationship("Review", backref="place", cascade="all, delete")
+    amenities = relationship("Amenity", secondary=place_amenity,
+            viewonly=False, backref="place_amenities")
 
     @property
     def reviews(self):
@@ -45,3 +53,16 @@ class Place(BaseModel, Base):
             if Review.place_id == self.id:
                 cs.append(rev)
         return cs
+
+    @property
+    def amenities(self):
+        cs = []
+        for ame in models.storage.all(Amenity).values():
+            if Amenity.amenity_ids == self.id:
+                cs.append(ame)
+        return cs
+
+    @amenities.setter
+    def amenities(self, ame):
+        if ame:
+            Amenity.amenity_ids.append(ame.id)
