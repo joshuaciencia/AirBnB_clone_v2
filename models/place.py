@@ -4,7 +4,7 @@ from models.base_model import BaseModel
 from models.base_model import Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
-place_amenity = Table('association', Base.metadata,
+place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id', String(60), ForeignKey('places.id'),
                              primary_key=True, nullable=False),
                       Column('amenity_id', String(60),
@@ -40,8 +40,9 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     amenity_ids = []
     reviews = relationship("Review", backref="place", cascade="all, delete")
-    amenities = relationship("Amenity", secondary=place_amenity,
-            viewonly=False, backref="place_amenities")
+    amenities = relationship("Amenity", secondary="place_amenity",
+            viewonly=False)
+    amenity_ids = []
 
     @property
     def reviews(self):
@@ -65,4 +66,4 @@ class Place(BaseModel, Base):
     @amenities.setter
     def amenities(self, ame):
         if ame:
-            Amenity.amenity_ids.append(ame.id)
+            self.amenity_ids.append(ame.id)
