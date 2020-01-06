@@ -11,6 +11,19 @@ env.hosts = [
             '35.237.30.103'
         ]
 env.user = 'ubuntu'
+def do_pack():
+    """
+    packs web_static content into a
+    .tgz file """
+    time = datetime.now()
+    str_date = time.strftime("%Y%m%d%H%M%S")
+    try:
+        local("mkdir -p versions")
+        return local("tar -cvzf versions/web_static_{}.tgz web_static"
+                     .format(str_date))
+    except Exception as e:
+        print(e)
+        return None
 
 
 def do_deploy(archive_path):
