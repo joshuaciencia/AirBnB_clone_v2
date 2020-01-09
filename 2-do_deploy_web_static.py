@@ -37,7 +37,7 @@ def do_deploy(archive_path):
     try:
         put(archive_path, '/tmp/{}'.format(f))
         run('mkdir -p {}'.
-             format(aux))
+            format(aux))
         run('tar -xzf /tmp/{} -C {}/'.
             format(f, aux))
         run('rm /tmp/{}'.format(f))
