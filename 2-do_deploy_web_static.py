@@ -11,6 +11,8 @@ env.hosts = [
             '35.237.30.103'
         ]
 env.user = 'ubuntu'
+
+
 def do_pack():
     """
     packs web_static content into a
@@ -34,8 +36,8 @@ def do_deploy(archive_path):
     f = archive_path.split('/')[-1]
     try:
         put((archive_path), '/tmp/')
-        sudo('mkdir -p {}'.
-            format(new_dir))
+        run('mkdir -p {}'.
+             format(new_dir))
         run('tar -xzf /tmp/{} -C {}'.
             format(f, new_dir))
         run('rm /tmp/{}'.format(f))
