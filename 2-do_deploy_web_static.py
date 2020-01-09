@@ -10,7 +10,6 @@ env.hosts = [
             '34.74.29.106',
             '35.237.30.103'
         ]
-env.user = 'ubuntu'
 
 
 def do_pack():
@@ -32,10 +31,10 @@ def do_deploy(archive_path):
     """ deploy to web server """
     if not exists(archive_path):
         return False
-    new_dir = '/data/web_static/releases/{}'.format(archive_path[0:-4])
+    new_dir = '/data/web_static/releases/{}'.format(archive_path.split(".")[0])
     f = archive_path.split('/')[-1]
     try:
-        put((archive_path), '/tmp/')
+        put(archive_path, '/tmp/')
         run('mkdir -p {}'.
              format(new_dir))
         run('tar -xzf /tmp/{} -C {}'.
