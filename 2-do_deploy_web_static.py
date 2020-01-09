@@ -31,19 +31,21 @@ def do_deploy(archive_path):
     """ deploy to web server """
     if not exists(archive_path):
         return False
-    new_dir = '/data/web_static/releases/{}'.format(archive_path.split(".")[0])
+    dir_name = archive_path[9:-4]
     f = archive_path.split('/')[-1]
+    aux = "data/web_static/releases/{}".format(dir_name)
     try:
-        put(archive_path, '/tmp/')
+        put(archive_path, '/tmp/{}'.format(f))
         run('mkdir -p {}'.
-             format(new_dir))
-        run('tar -xzf /tmp/{} -C {}'.
-            format(f, new_dir))
+             format(aux))
+        run('tar -xzf /tmp/{} -C {}/'.
+            format(f, aux))
         run('rm /tmp/{}'.format(f))
-        run('mv {}/web_static/* {}{}/'.format(new_dir, new_dir))
-        run('rm -rf {}/web_static'.format(new_dir))
-        run('rm -rf /data/web_static/current')
-        run('ln -s {}/ /data/web_static/current'.format(new_dir))
+        run('mv {}/web_static/* {}/'.format(aux, aux))
+        run('rm -rf {}/web_static'.format(aux))
+        run('rm -rf data/web_static/current')
+        run('ln -s {}/ data/web_static/current'.format(aux))
+        print("New version deployed!")
     except Exception:
         return False
     return True
