@@ -34,12 +34,12 @@ def do_deploy(archive_path):
     f = archive_path.split('/')[-1]
     try:
         put((archive_path), '/tmp/')
-        run('mkdir -p {}'.
+        sudo('mkdir -p {}'.
             format(new_dir))
         run('tar -xzf /tmp/{} -C {}'.
             format(f, new_dir))
         run('rm /tmp/{}'.format(f))
-        run('mv {}/web_static/* {}/'.format(new_dir, new_dir))
+        run('mv {}/web_static/* {}{}/'.format(new_dir, new_dir))
         run('rm -rf {}/web_static'.format(new_dir))
         run('rm -rf /data/web_static/current')
         run('ln -s {}/ /data/web_static/current'.format(new_dir))
