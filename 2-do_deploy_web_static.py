@@ -7,8 +7,8 @@ deploy to web server
 """
 
 env.hosts = [
-            '35.237.30.103',
-            '34.74.29.106'
+            '34.74.29.106',
+            '35.237.30.103'
         ]
 env.user = 'ubuntu'
 def do_pack():
@@ -45,3 +45,4 @@ def do_deploy(archive_path):
         run('ln -s {}/ /data/web_static/current'.format(new_dir))
     except Exception:
         return False
+    return True
