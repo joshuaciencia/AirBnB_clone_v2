@@ -7,7 +7,7 @@ deploy to web server
 """
 
 env.hosts = [
-            '34.74.29.47',
+            '35.237.30.103',
             '34.74.29.106'
         ]
 env.user = 'ubuntu'
