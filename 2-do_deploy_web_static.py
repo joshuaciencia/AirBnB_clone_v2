@@ -1,15 +1,13 @@
 #!/usr/bin/python3
 from os.path import exists
-from fabric.operations import put, run
+from datetime import datetime
+from fabric.operations import put, run, local
 from fabric.api import env
 """
 deploy to web server
 """
 
-env.hosts = [
-            '34.74.29.106',
-            '35.237.30.103'
-        ]
+env.hosts = ['34.74.29.106', '35.237.30.103']
 
 
 def do_pack():
