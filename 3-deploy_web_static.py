@@ -34,15 +34,15 @@ def do_deploy(archive_path):
     aux = "/data/web_static/releases/{}".format(dir_name)
     try:
         put(archive_path, '/tmp/{}'.format(f))
-        run('sudo mkdir -p {}/'.
+        run('mkdir -p {}/'.
             format(aux))
-        run('sudo tar -xzf /tmp/{} -C {}/'.
+        run('tar -xzf /tmp/{} -C {}/'.
             format(f, aux))
         run('rm /tmp/{}'.format(f))
-        run('sudo mv {}/web_static/* {}/'.format(aux, aux))
-        run('sudo rm -rf {}/web_static'.format(aux))
-        run('sudo rm -rf /data/web_static/current')
-        run('sudo ln -s {}/ /data/web_static/current'.format(aux))
+        run('mv {}/web_static/* {}/'.format(aux, aux))
+        run('rm -rf {}/web_static'.format(aux))
+        run('rm -rf /data/web_static/current')
+        run('ln -s {}/ /data/web_static/current'.format(aux))
         print("New version deployed!")
     except Exception:
         return False
