@@ -36,7 +36,7 @@ def do_deploy(archive_path):
     aux = "/data/web_static/releases/{}".format(dir_name)
     try:
         put(archive_path, '/tmp/{}'.format(f))
-        run('sudo mkdir -p {}'.
+        run('sudo mkdir -p {}/'.
             format(aux))
         run('sudo tar -xzf /tmp/{} -C {}/'.
             format(f, aux))
