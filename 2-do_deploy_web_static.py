@@ -39,7 +39,7 @@ def do_deploy(archive_path):
         run('tar -xzf /tmp/{} -C {}/'.
             format(f, aux))
         run('rm /tmp/{}'.format(f))
-        run('mv {}/web_static/* {}/'.format(aux, aux))
+        run('mv {}/web_static/* {}'.format(aux, aux))
         run('rm -rf {}/web_static'.format(aux))
         run('rm -rf /data/web_static/current')
         run('ln -s {}/ /data/web_static/current'.format(aux))
