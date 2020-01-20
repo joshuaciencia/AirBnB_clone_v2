@@ -17,11 +17,12 @@ class State(BaseModel, Base):
     cities = relationship(
         "City", backref="state", cascade="delete")
 
-    @property
-    def cities(self):
-        """ Getter attribute """
-        cs = []
-        for city in models.storage.all(City).values():
-            if (city.state_id == self.id):
-                cs.append(city)
-        return cs
+    if getenv('HBNB_TYPE_STORAGE') is not 'db':
+        @property
+        def cities(self):
+            """ Getter attribute """
+            cs = []
+            for city in models.storage.all(City).values():
+                if (city.state_id == self.id):
+                    cs.append(city)
+            return cs
