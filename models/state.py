@@ -5,7 +5,8 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String
 from models.base_model import Base
 from os import getenv
-
+import models
+from models.city import City
 
 class State(BaseModel, Base):
     """This is the class for State
@@ -15,7 +16,7 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
     __tablename__ = 'states'
 
-    if getenv('HBNB_TYPE_STORAGE') is not 'db':
+    if getenv('HBNB_TYPE_STORAGE') != 'db':
         @property
         def cities(self):
             cs = []
@@ -25,4 +26,4 @@ class State(BaseModel, Base):
             return cs
     else:
         cities = relationship(
-            "City", backref="states", cascade="delete")
+            "City", backref="state", cascade="delete")
