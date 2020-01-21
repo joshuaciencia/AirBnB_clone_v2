@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+web server with flask url=/hbnb
+"""
 from flask import Flask
 app = Flask(__name__)
 

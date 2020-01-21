@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Simple flask web server
+"""
 from flask import Flask
 app = Flask(__name__)
 

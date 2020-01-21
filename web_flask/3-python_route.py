@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+web server -> url=/python/<text>
+"""
 from flask import Flask
 app = Flask(__name__)
 

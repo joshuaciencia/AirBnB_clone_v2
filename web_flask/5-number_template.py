@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+web server with flask url=/number_template/n
+"""
 from flask import Flask
 from flask import render_template
 app = Flask(__name__)

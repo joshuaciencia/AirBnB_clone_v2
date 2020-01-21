@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+web flask url=/number_odd_or_even/n
+"""
 from flask import Flask
 from flask import render_template
 app = Flask(__name__)
