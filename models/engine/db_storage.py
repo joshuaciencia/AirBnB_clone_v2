@@ -20,8 +20,7 @@ class DBStorage:
 
     def __init__(self):
         """ Instantiation of DBStorage class """
-        self.__engine = create_engine(
-                                      'mysql+mysqldb://{}:{}@{}/{}'.format(
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
                                       getenv('HBNB_MYSQL_USER'),
                                       getenv('HBNB_MYSQL_PWD'),
                                       getenv('HBNB_MYSQL_HOST'),
@@ -42,10 +41,8 @@ class DBStorage:
         else:
             cls_list = [State, City, User, Place, Review]
             for c in cls_list:
-                for obj in self.__session.\
-                    query(c).\
-                    all():
-                        dic[type(obj).__name__ + "." + obj.id] = obj
+                for obj in self.__session.query(c).all():
+                    dic[type(obj).__name__ + "." + obj.id] = obj
         return dic
 
     def new(self, obj):
