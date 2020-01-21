@@ -35,8 +35,10 @@ class DBStorage:
             Returns a dictionary
         """
         dic = {}
+        if type(cls) is str:
+            cls = eval(cls)
         if cls:
-            for obj in self.__session.query(eval(cls)).all():
+            for obj in self.__session.query(cls).all():
                 dic[type(obj).__name__ + "." + obj.id] = obj
         else:
             cls_list = [State, City, User, Place, Review]

@@ -14,15 +14,15 @@ class State(BaseModel, Base):
     """
     name = Column(String(128), nullable=False)
     __tablename__ = 'states'
-    cities = relationship(
-        "City", backref="state", cascade="delete")
 
     if getenv('HBNB_TYPE_STORAGE') is not 'db':
         @property
         def cities(self):
-            """ Getter attribute """
             cs = []
             for city in models.storage.all(City).values():
                 if (city.state_id == self.id):
                     cs.append(city)
             return cs
+    else:
+        cities = relationship(
+            "City", backref="states", cascade="delete")
