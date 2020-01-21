@@ -19,7 +19,6 @@ def c(text):
     return "C {}".format(text.replace('_', ' '))
 
 
-
 @app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python(text='is_cool'):
@@ -42,4 +41,3 @@ def number_odd_or_even(n):
     return render_template('6-number_odd_or_even.html', n=n, even_odd=even_odd)
 
 app.run(host='0.0.0.0', port=5000)
-
